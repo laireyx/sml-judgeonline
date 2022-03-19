@@ -1,10 +1,12 @@
+const process = require("process");
 const express = require("express");
+const config = require("./config");
 
 const app = express();
 
 app.use(express.json());
 app.use("/", require("./routes"));
 
-app.listen(process.env.PORT || 8100, () => {
-  console.log("Server on");
+app.listen(config.PORT, () => {
+  console.log(`Server is listening at : ${config.PORT}`);
 });
