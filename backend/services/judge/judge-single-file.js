@@ -24,9 +24,7 @@ module.exports = function judgeSingleFile({
     const outputChunks = [];
     const judgeOut = judgeProcess.stdout;
 
-    judgeOut.on("error", (err) => reject(err));
-    judgeOut.on("data", (data) => outputChunks.push(Buffer.from(data)));
-    judgeOut.on("end", () => {
+    const resolveString = () => {
       const wholeString = Buffer.concat(outputChunks).toString("utf8");
       const outputStartIdx = wholeString.indexOf(config.JUDGE_OUTPUT_DELIMITER);
 
@@ -38,6 +36,13 @@ module.exports = function judgeSingleFile({
           outputStartIdx + config.JUDGE_OUTPUT_DELIMITER.length
         )
       );
+    };
+
+    judgeOut.on("error", () => {
+      outputChunks.push(Buffer.from("### TLE Termination ###\n"));
+      resolveString();
     });
+    judgeOut.on("data", (data) => outputChunks.push(Buffer.from(data)));
+    judgeOut.on("end", resolveString);
   });
 };
