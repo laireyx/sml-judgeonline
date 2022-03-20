@@ -21,16 +21,23 @@ module.exports = function judgeSingleFile({
       }
     );
 
-    console.log(`sml ${judgeCodePath} ${submittedCodePath}`);
-
     const outputChunks = [];
     const judgeOut = judgeProcess.stdout;
 
-    judgeProcess.stderr.on("data", (data) => console.error(data.toString()));
     judgeOut.on("error", (err) => reject(err));
     judgeOut.on("data", (data) => outputChunks.push(Buffer.from(data)));
-    judgeOut.on("end", () =>
-      resolve(Buffer.concat(outputChunks).toString("utf8"))
-    );
+    judgeOut.on("end", () => {
+      const wholeString = Buffer.concat(outputChunks).toString("utf8");
+      const outputStartIdx = wholeString.indexOf(config.JUDGE_OUTPUT_DELIMITER);
+
+      /** Cannot find output string */
+      if (outputStartIdx < 0) resolve("");
+
+      resolve(
+        wholeString.substring(
+          outputStartIdx + config.JUDGE_OUTPUT_DELIMITER.length
+        )
+      );
+    });
   });
 };

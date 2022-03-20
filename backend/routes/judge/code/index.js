@@ -25,7 +25,7 @@ route.post("/", (req, res, next) => {
     return;
   }
 
-  const codeText = `use "${config.JUDGE_LIBRARY_DIR}/test_library.sml"; start(); ${req.body.code} finish();`;
+  const codeText = `use "${config.JUDGE_LIBRARY_DIR}/test_library.sml"; start(); ${req.body.code}`;
   const createdName = `${req.body.name}.${Date.now()}.sml`;
   const problemPath = path.join(config.JUDGE_DIR, req.body.problem);
   const judgeCodePath = path.join(problemPath, createdName);
