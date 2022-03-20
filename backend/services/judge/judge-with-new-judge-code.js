@@ -1,8 +1,7 @@
-const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
 const judgeSingleFile = require("./judge-single-file");
-const list = require("../list");
+const { listSubmittedCodes } = require("../list");
 const { appendSubmitResult } = require("./record");
 
 /**
@@ -11,23 +10,23 @@ const { appendSubmitResult } = require("./record");
  * @return {Promise<Object<string, string>>}
  */
 module.exports = async function judgeWithNewJudgeCode({
-  verificationCodePath,
+  judgeCodePath,
   problemName,
 } = {}) {
-  if (!verificationCodePath || !problemName) return;
+  if (!judgeCodePath || !problemName) return;
 
   const submittedDir = path.join(config.SUBMIT_DIR, problemName);
-  const submittedCodes = list.listSubmits(problemName);
+  const submittedCodes = await listSubmittedCodes(problemName);
 
-  const verificationResult = {};
+  const allJudgedResult = {};
 
   await Promise.all(
     submittedCodes.map(async (submittedCodeName) => {
       const submittedCodePath = path.join(submittedDir, submittedCodeName);
-      const judgeResult = (verificationResult[submittedCodeName] =
+      const judgeResult = (allJudgedResult[submittedCodeName] =
         await judgeSingleFile({
           submittedCodePath,
-          verificationCodePath,
+          judgeCodePath,
         }));
 
       appendSubmitResult({
@@ -37,5 +36,5 @@ module.exports = async function judgeWithNewJudgeCode({
     })
   );
 
-  return verificationResult;
+  return allJudgedResult;
 };

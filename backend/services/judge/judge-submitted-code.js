@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
 const judgeSingleFile = require("./judge-single-file");
-const list = require("../list");
+const { listJudgeCodes } = require("../list");
 const { createSubmitResult } = require("./record");
 
 /**
@@ -17,7 +17,7 @@ module.exports = async function judgeSubmittedCode({
   if (!submittedCodePath || !problemName) return;
 
   const judgeDir = path.join(config.JUDGE_DIR, problemName);
-  const judgeCodes = list.listJudges(problemName);
+  const judgeCodes = await listJudgeCodes(problemName);
 
   const judgeResult = {};
 
