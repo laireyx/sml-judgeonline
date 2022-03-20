@@ -3,13 +3,14 @@ const path = require("path");
 const config = require("../../config");
 const judgeSingleFile = require("./judge-single-file");
 const list = require("../list");
+const { appendSubmitResult } = require("./record");
 
 /**
  *
  * @param {*} param0
  * @return {Promise<Object<string, string>>}
  */
-module.exports = function judgeWithNewVerification({
+module.exports = async function judgeWithNewVerification({
   verificationCodePath,
   problemName,
 } = {}) {
@@ -18,18 +19,23 @@ module.exports = function judgeWithNewVerification({
   const submittedDir = path.join(config.SUBMIT_DIR, problemName);
   const submittedCodes = list.listSubmits(problemName);
 
-  return new Promise((resolve, reject) => {
-    const result = {};
-    Promise.all(
-      submittedCodes.map((submittedCodeName) => {
-        result[submittedCodeName] = judgeSingleFile(
-          path.join(submittedDir, submittedCodeName),
-          verificationCodePath
-        );
-      })
-    ).then(
-      () => resolve(result),
-      (err) => reject(err)
-    );
-  });
+  const verificationResult = {};
+
+  await Promise.all(
+    submittedCodes.map(async (submittedCodeName) => {
+      const submittedCodePath = path.join(submittedDir, submittedCodeName);
+      const judgeResult = (verificationResult[submittedCodeName] =
+        await judgeSingleFile({
+          submittedCodePath,
+          verificationCodePath,
+        }));
+
+      appendSubmitResult({
+        submittedCodePath,
+        judgeResult,
+      });
+    })
+  );
+
+  return verificationResult;
 };
