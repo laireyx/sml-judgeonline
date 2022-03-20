@@ -27,7 +27,8 @@ route.post("/", upload.single("code"), (req, res, next) => {
 
   const uploadedPath = req.file.path;
   const createdName = `${req.body.name}.${Date.now()}.sml`;
-  const submitPath = path.join(config.SUBMIT_DIR, createdName);
+  const problemPath = path.join(config.SUBMIT_DIR, req.body.problem);
+  const submitPath = path.join(problemPath, createdName);
 
   fs.rename(uploadedPath, submitPath, (err) => {
     if (err) {

@@ -25,7 +25,7 @@ module.exports = function judgeSingleFile({
     const judgeOut = judgeProcess.stdout;
 
     judgeOut.on("error", (err) => reject(err));
-    judgeOut.on("data", (data) => judgeOutput.push(Buffer.from(data)));
+    judgeOut.on("data", (data) => outputChunks.push(Buffer.from(data)));
     judgeOut.on("end", () =>
       resolve(Buffer.concat(outputChunks).toString("utf8"))
     );
