@@ -1,0 +1,16 @@
+.submitWrapper {
+    display: inherit;
+    flex-direction: inherit;
+    gap: inherit;
+}
+
+.submitWrapper > *:nth-child(2) {
+    width: 60ch;
+}
+
+@media (max-width: 480px) {
+    .submitWrapper > *:nth-child(2) {
+        width: 48ch;
+        max-width: 80vw;
+    }
+}

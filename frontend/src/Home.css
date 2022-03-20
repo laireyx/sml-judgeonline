@@ -1,0 +1,11 @@
+.problemListWrapper {
+    display: inherit;
+    flex-direction: inherit;
+    gap: inherit;
+}
+
+.problemListBox {
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 2em;
+}
