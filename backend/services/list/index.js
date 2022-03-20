@@ -1,9 +1,9 @@
 const listProblems = require("./list-problems");
-const listSubmits = require("./list-submits");
-const listVerifications = require("./list-verifications");
+const listSubmittedCodes = require("./list-submitted-codes");
+const listJudgeCodes = require("./list-judge-codes");
 
 module.exports = {
   listProblems,
-  listSubmits,
-  listVerifications,
+  listSubmittedCodes,
+  listJudgeCodes,
 };

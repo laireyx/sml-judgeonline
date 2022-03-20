@@ -9,7 +9,7 @@ module.exports = {
   JUDGE_HOME: process.env.JUDGE_HOME,
   UPLOAD_DIR: path.join(process.env.JUDGE_HOME, "upload"),
   SUBMIT_DIR: path.join(process.env.JUDGE_HOME, "submit"),
-  VERIFY_DIR: path.join(process.env.JUDGE_HOME, "verify"),
+  JUDGE_DIR: path.join(process.env.JUDGE_HOME, "judge"),
 
   /** Judge configurations */
   JUDGE_TIMEOUT: 5000,

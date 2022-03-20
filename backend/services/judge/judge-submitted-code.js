@@ -16,28 +16,25 @@ module.exports = async function judgeSubmittedCode({
 } = {}) {
   if (!submittedCodePath || !problemName) return;
 
-  const verificationDir = path.join(config.VERIFY_DIR, problemName);
-  const verificationCodes = list.listVerifications(problemName);
+  const judgeDir = path.join(config.JUDGE_DIR, problemName);
+  const judgeCodes = list.listJudges(problemName);
 
-  const verificationResult = {};
+  const judgeResult = {};
 
   await Promise.all(
-    verificationCodes.map((verificationCodeName) => {
-      const verificationCodePath = path.join(
-        verificationDir,
-        verificationCodeName
-      );
-      return (verificationResult[verificationCodeName] = judgeSingleFile({
+    judgeCodes.map((judgeCodeName) => {
+      const judgeCodePath = path.join(judgeDir, judgeCodeName);
+      return (judgeResult[judgeCodeName] = judgeSingleFile({
         submittedCodePath,
-        verificationCodePath,
+        judgeCodePath,
       }));
     })
   );
 
   await createSubmitResult({
     submittedCodePath,
-    judgeResult: verificationResult,
+    judgeResult,
   });
 
-  return verificationResult;
+  return judgeResult;
 };

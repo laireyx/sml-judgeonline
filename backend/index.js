@@ -1,7 +1,5 @@
-const process = require("process");
 const express = require("express");
 const config = require("./config");
-const listSubmits = require("./services/list/list-submits");
 
 const app = express();
 

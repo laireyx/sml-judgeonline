@@ -10,7 +10,7 @@ const { appendSubmitResult } = require("./record");
  * @param {*} param0
  * @return {Promise<Object<string, string>>}
  */
-module.exports = async function judgeWithNewVerification({
+module.exports = async function judgeWithNewJudgeCode({
   verificationCodePath,
   problemName,
 } = {}) {
