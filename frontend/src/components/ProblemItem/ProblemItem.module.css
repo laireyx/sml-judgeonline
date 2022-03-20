@@ -1,0 +1,16 @@
+.problemItem {
+    border: 4px solid black;
+    border-radius: 8px;
+    padding: 1em;
+}
+
+.problemName {
+    font-weight: bold;
+}
+
+.newProblemNameInput {
+    border: none;
+    background: lightgray;
+    padding: 0.5em;
+    border-radius: 8px;
+}
