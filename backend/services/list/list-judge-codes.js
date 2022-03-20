@@ -8,8 +8,12 @@ const readdir = promisify(fs.readdir);
  *
  * @return {Promise<string[]>}
  */
-module.exports = function listJudgeCodess(problemName) {
-  return readdir(path.join(config.JUDGE_DIR, problemName)).then((files) =>
-    files.filter((fileName) => fileName.endsWith(".sml"))
+module.exports = function listJudgeCodes(problemName) {
+  return readdir(path.join(config.JUDGE_DIR, problemName)).then(
+    (files) => files.filter((fileName) => fileName.endsWith(".sml")),
+    (err) => {
+      console.error(err);
+      return [];
+    }
   );
 };
