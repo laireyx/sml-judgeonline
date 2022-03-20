@@ -1,5 +1,3 @@
-const fs = require("fs");
-const { promisify } = require("util");
 const { Router } = require("express");
 const { listSubmittedStatus } = require("../../../services/list");
 

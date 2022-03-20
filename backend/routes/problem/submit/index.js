@@ -1,11 +1,7 @@
-const fs = require("fs");
-const path = require("path");
-const { promisify } = require("util");
 const { Router } = require("express");
 
+const { writeSubmittedCode } = require("../../../services/write-code");
 const { judgeSubmittedCode } = require("../../../services/judge");
-const config = require("../../../config");
-const writeFile = promisify(fs.writeFile);
 
 const route = Router();
 
@@ -20,23 +16,13 @@ route.post("/", (req, res, next) => {
     return;
   }
 
-  if (!req.body.problem) {
+  if (!req.body.problemName) {
     res.status(400).send("No Problem Name");
     return;
   }
 
-  const codeText = req.body.code;
-  const createdName = `${req.body.name}.${Date.now()}.sml`;
-  const problemPath = path.join(config.SUBMIT_DIR, req.body.problem);
-  const submittedCodePath = path.join(problemPath, createdName);
-
-  writeFile(submittedCodePath, codeText)
-    .then(() =>
-      judgeSubmittedCode({
-        submittedCodePath,
-        problemName: req.body.problem,
-      })
-    )
+  writeSubmittedCode(req.body)
+    .then(judgeSubmittedCode)
     .then((judgeResult) => res.json(judgeResult))
     .catch((err) => {
       console.error(err);

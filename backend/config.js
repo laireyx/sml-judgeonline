@@ -13,5 +13,5 @@ module.exports = {
 
   /** Judge configurations */
   JUDGE_TIMEOUT: 5000,
-  JUDGE_OUTPUT_DELIMITER: "## SOJ_JUDGE_START##\n\n",
+  JUDGE_OUTPUT_DELIMITER: "## SOJ_JUDGE_START ##\n\n",
 };
