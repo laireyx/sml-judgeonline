@@ -21,9 +21,12 @@ module.exports = function judgeSingleFile({
       }
     );
 
+    console.log(`sml ${judgeCodePath} ${submittedCodePath}`);
+
     const outputChunks = [];
     const judgeOut = judgeProcess.stdout;
 
+    judgeProcess.stderr.on("data", (data) => console.error(data.toString()));
     judgeOut.on("error", (err) => reject(err));
     judgeOut.on("data", (data) => outputChunks.push(Buffer.from(data)));
     judgeOut.on("end", () =>

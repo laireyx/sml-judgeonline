@@ -1,17 +1,17 @@
 const fs = require("fs");
+const path = require("path");
+const { promisify } = require("util");
 const { Router } = require("express");
-const multer = require("multer");
-const judge = require("../../../services/judge");
+
+const { judgeSubmittedCode } = require("../../../services/judge");
 const config = require("../../../config");
+const writeFile = promisify(fs.writeFile);
 
 const route = Router();
-const upload = multer({
-  dest: config.UPLOAD_DIR,
-});
 
-route.post("/", upload.single("code"), (req, res, next) => {
-  if (!req.file) {
-    res.status(400).send("No Code Attached");
+route.post("/", (req, res, next) => {
+  if (!req.body.code) {
+    res.status(400).send("No Code");
     return;
   }
 
@@ -20,29 +20,28 @@ route.post("/", upload.single("code"), (req, res, next) => {
     return;
   }
 
-  if (!req.body.name) {
+  if (!req.body.problem) {
     res.status(400).send("No Problem Name");
     return;
   }
 
-  const uploadedPath = req.file.path;
+  const codeText = req.body.code;
   const createdName = `${req.body.name}.${Date.now()}.sml`;
   const problemPath = path.join(config.SUBMIT_DIR, req.body.problem);
-  const submitPath = path.join(problemPath, createdName);
+  const submittedCodePath = path.join(problemPath, createdName);
 
-  fs.rename(uploadedPath, submitPath, (err) => {
-    if (err) {
-      res.status(500).send("Failed");
-    } else {
-      /** @todo judge this code */
-      judge
-        .judgeSubmittedCode({
-          codePath: submitPath,
-          problemName: req.body.problem,
-        })
-        .then((judgeResult) => res.json(judgeResult));
-    }
-  });
+  writeFile(submittedCodePath, codeText)
+    .then(() =>
+      judgeSubmittedCode({
+        submittedCodePath,
+        problemName: req.body.problem,
+      })
+    )
+    .then((judgeResult) => res.json(judgeResult))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Internal Server Error");
+    });
 });
 
 module.exports = route;
