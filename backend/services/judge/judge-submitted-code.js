@@ -22,9 +22,9 @@ module.exports = async function judgeSubmittedCode({
   const judgeResult = {};
 
   await Promise.all(
-    judgeCodes.map((judgeCodeName) => {
+    judgeCodes.map(async (judgeCodeName) => {
       const judgeCodePath = path.join(judgeDir, judgeCodeName);
-      return (judgeResult[judgeCodeName] = judgeSingleFile({
+      return (judgeResult[judgeCodeName] = await judgeSingleFile({
         submittedCodePath,
         judgeCodePath,
       }));
