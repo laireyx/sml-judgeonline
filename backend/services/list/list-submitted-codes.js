@@ -8,7 +8,7 @@ const readdir = promisify(fs.readdir);
  *
  * @return {Promise<string[]>}
  */
-module.exports = function listSubmits(problemName) {
+module.exports = function listSubmittedCodes(problemName) {
   return readdir(path.join(config.SUBMIT_DIR, problemName)).then((files) =>
     files.filter((fileName) => fileName.endsWith(".sml"))
   );

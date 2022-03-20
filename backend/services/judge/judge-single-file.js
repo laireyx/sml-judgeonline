@@ -8,14 +8,14 @@ const config = require("../../config");
  */
 module.exports = function judgeSingleFile({
   submittedCodePath,
-  verificationCodePath,
+  judgeCodePath,
 } = {}) {
-  if (!submittedCodePath || !verificationCodePath) return;
+  if (!submittedCodePath || !judgeCodePath) return;
 
   return new Promise((resolve, reject) => {
     const judgeProcess = child_process.spawn(
       "sml",
-      [verificationCodePath, submittedCodePath],
+      [judgeCodePath, submittedCodePath],
       {
         timeout: config.JUDGE_TIMEOUT,
       }
