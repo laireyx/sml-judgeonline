@@ -3,7 +3,7 @@ const process = require("process");
 
 module.exports = {
   /** Server configuration */
-  PORT: process.env.PORT || 8100,
+  PORT: process.env.PORT || 8080,
 
   /** Directory configuration */
   JUDGE_HOME: process.env.JUDGE_HOME,
