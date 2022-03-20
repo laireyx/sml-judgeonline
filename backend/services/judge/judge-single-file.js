@@ -7,15 +7,15 @@ const config = require("../../config");
  * @return {Promise<string>}
  */
 module.exports = function judgeSingleFile({
-  codePath,
+  submittedCodePath,
   verificationCodePath,
 } = {}) {
-  if (!codePath || !verificationCodePath) return;
+  if (!submittedCodePath || !verificationCodePath) return;
 
   return new Promise((resolve, reject) => {
     const judgeProcess = child_process.spawn(
       "sml",
-      [verificationCodePath, codePath],
+      [verificationCodePath, submittedCodePath],
       {
         timeout: config.JUDGE_TIMEOUT,
       }
