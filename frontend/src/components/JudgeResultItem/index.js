@@ -1,17 +1,32 @@
-export default function JudgeResultItem({ codeName, result }) {
-  const [_, name, timeStamp] = codeName.match(/([^.]+).(\d+).sml.result.json/);
+import styles from "./JudgeResultItem.module.css";
+import useHash from "./useHash";
+
+export default function JudgeResultItem({ className, codeName, result }) {
+  const [_, name, timeStamp] = codeName.match(/(.+?).(\d+).sml.result.json/);
+
+  const [resultHash, hashColor] = useHash(result);
 
   return (
-    <>
-      {name}.sml({new Date(+timeStamp).toLocaleString()})
-      <ul>
+    <tr className={className}>
+      <td className={styles.submittedCodeName}>{name}</td>
+      <td>
+        <span
+          className={styles.hashValue}
+          style={{
+            color: hashColor,
+          }}
+        >
+          {resultHash}
+        </span>
+      </td>
+      <td>{new Date(+timeStamp).toLocaleString()}</td>
+      <td>
         {Object.keys(result).map((judgeCode) => (
           <li key={codeName + judgeCode}>
             {judgeCode} : {result[judgeCode].length}B
           </li>
         ))}
-      </ul>
-      <br />
-    </>
+      </td>
+    </tr>
   );
 }

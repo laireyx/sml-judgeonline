@@ -1,0 +1,10 @@
+.submittedCodeName {
+    display: block;
+    
+    font-weight: bold;
+    text-align: left;
+}
+
+.hashValue {
+    font-weight: bold;
+}
