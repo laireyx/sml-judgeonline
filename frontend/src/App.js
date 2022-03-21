@@ -3,9 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import JudgeStatus from "./routes/judge-status";
 import SubmitCode from "./routes/submit";
+import SubmitJudge from "./routes/submit-judge";
 
 import "./App.css";
-import SubmitJudge from "./routes/submit-judge";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Route path="/submit/:problemName" element={<SubmitCode />} />
 
         <Route path="/submit-judge/" element={<SubmitJudge />} />
-        <Route path="/submit-judge/:problemName" element={<SubmitCode />} />
+        <Route path="/submit-judge/:problemName" element={<SubmitJudge />} />
 
         <Route path="/status/:problemName" element={<JudgeStatus />} />
       </Routes>

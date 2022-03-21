@@ -9,7 +9,8 @@ import useProblemList from "../../useProblemList";
 import { useParams } from "react-router-dom";
 import useSubmit from "./useSubmit";
 
-export default function SubmitEditor({ submitUrl }) {
+export default function SubmitEditor({ title = "", submitUrl = "" }) {
+  console.log(title);
   const params = useParams();
   const problemList = useProblemList();
   const submit = useSubmit(submitUrl);
@@ -33,7 +34,7 @@ export default function SubmitEditor({ submitUrl }) {
   /** @todo create a input name */
   return (
     <>
-      <h1>Submit Code</h1>
+      <h1>{title}</h1>
       <div className="submitWrapper">
         <Select
           value={problemName}
