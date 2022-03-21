@@ -1,0 +1,26 @@
+thead tr {
+    background: rgb(192, 192, 192);
+}
+
+tr.oddRow {
+    background: rgb(240, 240, 240);
+}
+
+tr.evenRow { }
+
+tr {
+    transition: 500ms;
+}
+
+tbody tr:hover {
+    background: rgb(224, 224, 255);
+    transition: 100ms;
+}
+
+td, th {
+    padding: 0 0.5em;
+}
+
+td {    
+    text-align: left;
+}
