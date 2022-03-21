@@ -24,5 +24,5 @@ module.exports = async function appendSubmitResult({
 
   Object.assign(existingResult, judgeResult);
 
-  return writeFile(resultPath, JSON.stringify(judgeResult));
+  return writeFile(resultPath, JSON.stringify(existingResult));
 };
