@@ -26,7 +26,7 @@ module.exports = function judgeSingleFile({
 
     const resolveJudgeResult = () => {
       resolve({
-        judgeCodePath: getJudgeOutput(),
+        [judgeCodePath]: getJudgeOutput(),
       });
     };
 
