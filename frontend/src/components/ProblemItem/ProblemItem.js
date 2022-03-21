@@ -1,20 +1,16 @@
-import { LinkButton } from "../Button";
 import styles from "./ProblemItem.module.css";
+import uploadIcon from "./upload.png";
+import judgeIcon from "./judge.png";
+import statusIcon from "./status.png";
+import LinkIcon from "../LinkIcon";
 
 export default function ProblemItem({ problemName }) {
   return (
     <div className={styles.problemItem}>
-      <h2>{problemName}</h2>
-      <LinkButton
-        to={`/submit/${problemName}`}
-        content="submit"
-        style={{ display: "inline-block" }}
-      />
-      <LinkButton
-        to={`/status/${problemName}`}
-        content="status"
-        style={{ display: "inline-block" }}
-      />
+      <span className={styles.problemName}>{problemName}</span>
+      <LinkIcon to={`/submit/${problemName}`} src={uploadIcon} />
+      <LinkIcon to={`/submit-judge/${problemName}`} src={judgeIcon} />
+      <LinkIcon to={`/status/${problemName}`} src={statusIcon} />
     </div>
   );
 }
