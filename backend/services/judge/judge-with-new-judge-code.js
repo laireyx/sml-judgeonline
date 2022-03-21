@@ -23,11 +23,13 @@ module.exports = async function judgeWithNewJudgeCode({
   await Promise.all(
     submittedCodes.map(async (submittedCodeName) => {
       const submittedCodePath = path.join(submittedDir, submittedCodeName);
-      const judgeResult = (allJudgedResult[submittedCodeName] =
-        await judgeSingleFile({
-          submittedCodePath,
-          judgeCodePath,
-        }));
+      const judgeResult = {
+        [judgeCodePath]: (allJudgedResult[submittedCodeName] =
+          await judgeSingleFile({
+            submittedCodePath,
+            judgeCodePath,
+          })),
+      };
 
       appendSubmitResult({
         submittedCodePath,
