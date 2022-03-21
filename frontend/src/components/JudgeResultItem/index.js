@@ -7,7 +7,7 @@ export default function JudgeResultItem({ codeName, result }) {
       <ul>
         {Object.keys(result).map((judgeCode) => (
           <li key={codeName + judgeCode}>
-            {judgeCode} : {result[judgeCode]}B
+            {judgeCode} : {result[judgeCode].length}B
           </li>
         ))}
       </ul>
