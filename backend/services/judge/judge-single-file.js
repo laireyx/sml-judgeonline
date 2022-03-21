@@ -15,7 +15,7 @@ module.exports = function judgeSingleFile({
   return new Promise((resolve, reject) => {
     const judgeProcess = child_process.spawn(
       "sml",
-      [judgeCodePath, submittedCodePath],
+      [config.JUDGE_RUNNER_PATH, judgeCodePath, submittedCodePath],
       {
         timeout: config.JUDGE_TIMEOUT,
       }

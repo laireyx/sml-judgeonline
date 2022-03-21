@@ -13,5 +13,10 @@ module.exports = {
 
   /** Judge configurations */
   JUDGE_TIMEOUT: 5000,
+  JUDGE_RUNNER_PATH: path.join(
+    process.env.JUDGE_HOME,
+    "judge-lib",
+    "judge.sml"
+  ),
   JUDGE_OUTPUT_DELIMITER: "## SOJ_JUDGE_START ##\n\n",
 };
