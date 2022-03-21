@@ -4,12 +4,23 @@
     gap: inherit;
 }
 
-.submitWrapper > *:nth-child(2) {
+.codeName {
+    appearance: none;
+
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 4px;
+    
+    padding: 0.5em;
+
+    font-size: inherit;
+}
+
+.submitWrapper > *:last-child {
     width: 60ch;
 }
 
 @media (max-width: 480px) {
-    .submitWrapper > *:nth-child(2) {
+    .submitWrapper > *:last-child {
         width: 48ch;
         max-width: 80vw;
     }

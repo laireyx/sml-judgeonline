@@ -8,9 +8,9 @@ import "./SubmitEditor.css";
 import useProblemList from "../../useProblemList";
 import { useParams } from "react-router-dom";
 import useSubmit from "./useSubmit";
+import useName from "./useName";
 
 export default function SubmitEditor({ title = "", submitUrl = "" }) {
-  console.log(title);
   const params = useParams();
   const problemList = useProblemList();
   const submit = useSubmit(submitUrl);
@@ -25,10 +25,12 @@ export default function SubmitEditor({ title = "", submitUrl = "" }) {
       }),
     [problemList]
   );
+
   const [problemName, setProblemName] = useState({
     label: params.problemName,
     value: params.problemName,
   });
+  const [name, setName, saveName] = useName();
   const [code, setCode] = useState("");
 
   /** @todo create a input name */
@@ -40,6 +42,13 @@ export default function SubmitEditor({ title = "", submitUrl = "" }) {
           value={problemName}
           onChange={(newProblemName) => setProblemName(newProblemName)}
           options={problemOptions}
+        />
+        <input
+          className="codeName"
+          type="text"
+          placeholder="Seo"
+          value={name}
+          onChange={({ target: { value } }) => setName(value)}
         />
         <CodeEditor
           language="sml"
@@ -56,13 +65,15 @@ export default function SubmitEditor({ title = "", submitUrl = "" }) {
         />
         <Button
           content="Submit"
-          onClick={() =>
+          onClick={() => {
+            saveName(name);
+
             submit({
-              name: "Foobar",
+              name: name || "Seo",
               problemName: problemName.value,
               code,
-            })
-          }
+            });
+          }}
         />
       </div>
     </>
