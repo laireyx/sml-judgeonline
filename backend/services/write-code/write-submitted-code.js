@@ -1,9 +1,6 @@
-const fs = require("fs");
 const path = require("path");
-const { promisify } = require("util");
 const config = require("../../config");
-const mkdir = promisify(fs.mkdir);
-const writeFile = promisify(fs.writeFile);
+const writeCode = require("./write-code");
 
 module.exports = async function writeSubmittedCode({
   name,
@@ -15,8 +12,10 @@ module.exports = async function writeSubmittedCode({
 
   const submittedCodePath = path.join(problemPath, createdName);
 
-  await mkdir(problemPath, { recursive: true });
-  await writeFile(submittedCodePath, code);
+  await writeCode({
+    codePath: submittedCodePath,
+    code,
+  });
 
   return { submittedCodePath, problemName };
 };

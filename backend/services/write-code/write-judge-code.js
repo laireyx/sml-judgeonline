@@ -1,9 +1,6 @@
-const fs = require("fs");
 const path = require("path");
-const { promisify } = require("util");
 const config = require("../../config");
-const mkdir = promisify(fs.mkdir);
-const writeFile = promisify(fs.writeFile);
+const writeCode = require("./write-code");
 
 module.exports = async function writeJudgeCode({
   name,
@@ -14,10 +11,11 @@ module.exports = async function writeJudgeCode({
   const problemPath = path.join(config.JUDGE_DIR, problemName);
 
   const judgeCodePath = path.join(problemPath, createdName);
-  const codeText = `use "${config.JUDGE_LIBRARY_DIR}/test_library.sml"; start(); ${code} finish();`;
 
-  await mkdir(problemPath, { recursive: true });
-  await writeFile(judgeCodePath, codeText);
+  await writeCode({
+    codePath: judgeCodePath,
+    code,
+  });
 
   return { judgeCodePath, problemName };
 };
