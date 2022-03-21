@@ -24,25 +24,29 @@ module.exports = function judgeSingleFile({
     const outputChunks = [];
     const judgeOut = judgeProcess.stdout;
 
-    const resolveString = () => {
+    const resolveJudgeResult = () => {
+      resolve({
+        judgeCodePath: getJudgeOutput(),
+      });
+    };
+
+    const getJudgeOutput = () => {
       const wholeString = Buffer.concat(outputChunks).toString("utf8");
       const outputStartIdx = wholeString.indexOf(config.JUDGE_OUTPUT_DELIMITER);
 
       /** Cannot find output string */
-      if (outputStartIdx < 0) resolve("");
+      if (outputStartIdx < 0) return "";
 
-      resolve(
-        wholeString.substring(
-          outputStartIdx + config.JUDGE_OUTPUT_DELIMITER.length
-        )
+      return wholeString.substring(
+        outputStartIdx + config.JUDGE_OUTPUT_DELIMITER.length
       );
     };
 
     judgeOut.on("error", () => {
       outputChunks.push(Buffer.from("### TLE Termination ###\n"));
-      resolveString();
+      resolveJudgeResult();
     });
     judgeOut.on("data", (data) => outputChunks.push(Buffer.from(data)));
-    judgeOut.on("end", resolveString);
+    judgeOut.on("end", resolveJudgeResult);
   });
 };
