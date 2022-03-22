@@ -15,6 +15,7 @@ module.exports = async function judgeWithNewJudgeCode({
 } = {}) {
   if (!judgeCodePath || !problemName) return;
 
+  const judgeCodeName = path.basename(judgeCodePath);
   const submittedDir = path.join(config.SUBMIT_DIR, problemName);
   const submittedCodes = await listSubmittedCodes(problemName);
 
@@ -24,7 +25,7 @@ module.exports = async function judgeWithNewJudgeCode({
     submittedCodes.map(async (submittedCodeName) => {
       const submittedCodePath = path.join(submittedDir, submittedCodeName);
       const judgeResult = {
-        [judgeCodePath]: (allJudgedResult[submittedCodeName] =
+        [judgeCodeName]: (allJudgedResult[submittedCodeName] =
           await judgeSingleFile({
             submittedCodePath,
             judgeCodePath,
