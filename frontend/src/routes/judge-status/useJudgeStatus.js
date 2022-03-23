@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function useJudgeStatus(problemName) {
   const [judgeStatus, setJudgeStatus] = useState({});
@@ -9,5 +9,15 @@ export default function useJudgeStatus(problemName) {
       .then((fetchedStatus) => setJudgeStatus(fetchedStatus));
   }, [problemName]);
 
-  return judgeStatus;
+  const sortedResult = useMemo(() => {
+    const sorted = {};
+    Object.keys(judgeStatus)
+      .sort()
+      .forEach((sortedKey) => {
+        sorted[sortedKey] = judgeStatus[sortedKey];
+      });
+    return sorted;
+  }, [judgeStatus]);
+
+  return sortedResult;
 }

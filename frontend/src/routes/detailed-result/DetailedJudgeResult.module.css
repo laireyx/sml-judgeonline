@@ -7,3 +7,8 @@ td.resultText code {
     line-break: anywhere;
     font-size: smaller;
 }
+
+.hashValue {
+    font-weight: bold;
+    text-align: center;
+}

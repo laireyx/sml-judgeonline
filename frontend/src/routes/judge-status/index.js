@@ -15,9 +15,8 @@ export default function JudgeStatus() {
         <thead>
           <tr>
             <th>Code name</th>
-            <th>Result Hash</th>
-            <th>Submitted Date</th>
-            <th>See Result</th>
+            <th>Result</th>
+            <th>Submitted date</th>
           </tr>
         </thead>
         <tbody>

@@ -15,12 +15,12 @@
     font-size: inherit;
 }
 
-.submitWrapper > *:last-child {
+.submitWrapper > *:nth-child(3) {
     width: 60ch;
 }
 
 @media (max-width: 480px) {
-    .submitWrapper > *:last-child {
+    .submitWrapper > *:nth-child(3) {
         width: 48ch;
         max-width: 80vw;
     }
