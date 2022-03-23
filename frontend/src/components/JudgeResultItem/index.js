@@ -2,6 +2,7 @@ import styles from "./JudgeResultItem.module.css";
 import useHash from "./useHash";
 
 export default function JudgeResultItem({ className, codeName, result }) {
+  /* eslint-disable no-unused-vars */
   const [_, name, timeStamp] = codeName.match(/(.+?).(\d+).sml.result.json/);
 
   const [resultHash, hashColor] = useHash(result);
