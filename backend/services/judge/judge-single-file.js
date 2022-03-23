@@ -42,7 +42,9 @@ module.exports = function judgeSingleFile({
       outputChunks.push(Buffer.from("### TLE Termination ###\n"));
       resolveJudgeOutput();
     });
-    judgeOut.on("data", (data) => outputChunks.push(Buffer.from(data)));
+    judgeOut.on("data", (data) =>
+      outputChunks.push(Buffer.from(data), Buffer.from("\n"))
+    );
     judgeOut.on("end", resolveJudgeOutput);
   });
 };
