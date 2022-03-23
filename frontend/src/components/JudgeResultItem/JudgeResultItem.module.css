@@ -7,3 +7,12 @@
     font-weight: bold;
     text-align: center;
 }
+
+.submittedDate {
+    text-align: center;
+}
+
+.resultBytes {
+    text-decoration: underline;
+    text-align: center;
+}

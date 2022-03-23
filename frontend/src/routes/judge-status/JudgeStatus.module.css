@@ -17,7 +17,11 @@ tbody tr:hover {
     transition: 100ms;
 }
 
-td, th {
+th {
+    padding: 0.5em;
+}
+
+td {
     padding: 0 0.5em;
 }
 
