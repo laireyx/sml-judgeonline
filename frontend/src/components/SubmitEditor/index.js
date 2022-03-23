@@ -30,7 +30,7 @@ export default function SubmitEditor({ title = "", submitUrl = "" }) {
     label: params.problemName,
     value: params.problemName,
   });
-  const [name, setName, saveName] = useName();
+  const [name, setName, saveName] = useName(title);
   const [code, setCode] = useState("");
 
   /** @todo create a input name */

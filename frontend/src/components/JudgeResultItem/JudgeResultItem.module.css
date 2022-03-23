@@ -1,10 +1,9 @@
-.submittedCodeName {
-    display: block;
-    
+.submittedCodeName {    
     font-weight: bold;
-    text-align: left;
+    text-align: center;
 }
 
 .hashValue {
     font-weight: bold;
+    text-align: center;
 }

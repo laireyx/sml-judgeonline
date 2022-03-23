@@ -2,6 +2,7 @@ import styles from "./JudgeResultItem.module.css";
 import useHash from "./useHash";
 
 export default function JudgeResultItem({ className, codeName, result }) {
+  /* eslint-disable no-unused-vars */
   const [_, name, timeStamp] = codeName.match(/(.+?).(\d+).sml.result.json/);
 
   const [resultHash, hashColor] = useHash(result);
@@ -21,11 +22,15 @@ export default function JudgeResultItem({ className, codeName, result }) {
       </td>
       <td>{new Date(+timeStamp).toLocaleString()}</td>
       <td>
-        {Object.keys(result).map((judgeCode) => (
-          <li key={codeName + judgeCode}>
-            {judgeCode} : {result[judgeCode].length}B
-          </li>
-        ))}
+        {Object.keys(result).map((judgeCode) => {
+          /** eslint-disable no-unused-vars */
+          const [_, name, timeStamp] = judgeCode.match(/(.+?).(\d+).sml/);
+          return (
+            <li key={codeName + judgeCode}>
+              {name} : {result[judgeCode].length}B
+            </li>
+          );
+        })}
       </td>
     </tr>
   );
