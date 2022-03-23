@@ -1,0 +1,9 @@
+td.resultText code {
+    max-width: 40em;
+
+    display: block;
+    overflow-y: auto;
+    
+    line-break: anywhere;
+    font-size: smaller;
+}

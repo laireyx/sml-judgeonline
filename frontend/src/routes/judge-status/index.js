@@ -17,7 +17,7 @@ export default function JudgeStatus() {
             <th>Code name</th>
             <th>Result Hash</th>
             <th>Submitted Date</th>
-            <th>Raw Result Text</th>
+            <th>See Result</th>
           </tr>
         </thead>
         <tbody>
@@ -25,6 +25,7 @@ export default function JudgeStatus() {
             <JudgeResultItem
               className={idx % 2 === 1 ? styles.oddRow : styles.evenRow}
               key={codeName}
+              problemName={params.problemName}
               codeName={codeName}
               result={judgeStatus[codeName]}
             />

@@ -6,6 +6,7 @@ import SubmitCode from "./routes/submit";
 import SubmitJudge from "./routes/submit-judge";
 
 import "./App.css";
+import DetailedJudgeResult from "./routes/detailed-result";
 
 function App() {
   return (
@@ -19,6 +20,10 @@ function App() {
         <Route path="/submit-judge/" element={<SubmitJudge />} />
         <Route path="/submit-judge/:problemName" element={<SubmitJudge />} />
 
+        <Route
+          path="/detailed-status/:problemName/:codeName"
+          element={<DetailedJudgeResult />}
+        />
         <Route path="/status/:problemName" element={<JudgeStatus />} />
       </Routes>
     </div>

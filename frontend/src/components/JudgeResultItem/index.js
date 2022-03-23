@@ -1,7 +1,15 @@
+import path from "path-browserify";
+
+import { Link } from "react-router-dom";
 import styles from "./JudgeResultItem.module.css";
 import useHash from "./useHash";
 
-export default function JudgeResultItem({ className, codeName, result }) {
+export default function JudgeResultItem({
+  className,
+  problemName,
+  codeName,
+  result,
+}) {
   /* eslint-disable no-unused-vars */
   const [_, name, timeStamp] = codeName.match(/(.+?).(\d+).sml.result.json/);
 
@@ -10,27 +18,28 @@ export default function JudgeResultItem({ className, codeName, result }) {
   return (
     <tr className={className}>
       <td className={styles.submittedCodeName}>{name}</td>
-      <td>
-        <span
-          className={styles.hashValue}
-          style={{
-            color: hashColor,
-          }}
-        >
-          {resultHash}
-        </span>
+      <td
+        className={styles.hashValue}
+        style={{
+          color: hashColor,
+        }}
+      >
+        {resultHash}
       </td>
-      <td>{new Date(+timeStamp).toLocaleString()}</td>
-      <td>
-        {Object.keys(result).map((judgeCode) => {
-          /** eslint-disable no-unused-vars */
-          const [_, name, timeStamp] = judgeCode.match(/(.+?).(\d+).sml/);
-          return (
-            <li key={codeName + judgeCode}>
-              {name} : {result[judgeCode].length}B
-            </li>
-          );
-        })}
+      <td className={styles.submittedDate}>
+        <time dateTime={new Date(+timeStamp).toLocaleString()}>
+          {new Date(+timeStamp).toLocaleString()}
+        </time>
+      </td>
+      <td className={styles.resultBytes}>
+        <Link
+          to={`/detailed-status/${problemName}/${path.basename(
+            codeName,
+            ".result.json"
+          )}`}
+        >
+          {result}B
+        </Link>
       </td>
     </tr>
   );
