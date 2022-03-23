@@ -3,13 +3,13 @@ const path = require("path");
 const { promisify } = require("util");
 const config = require("../../config");
 const readdir = promisify(fs.readdir);
-const readFile = promisify(fs.readFile);
+const stat = promisify(fs.stat);
 
 /**
  *
  * @return {Promise<string[]>}
  */
-module.exports = async function listSubmittedStatus(problemName) {
+module.exports = async function listAllJudgeStatus(problemName) {
   const problemPath = path.join(config.SUBMIT_DIR, problemName);
 
   const allFiles = await readdir(problemPath);
@@ -23,7 +23,9 @@ module.exports = async function listSubmittedStatus(problemName) {
     resultFiles.map(async (resultFileName) => {
       try {
         submittedStatus[resultFileName] = JSON.parse(
-          await readFile(path.join(problemPath, resultFileName))
+          await stat(path.join(problemPath, resultFileName)).then(
+            (stat) => stat.size
+          )
         );
       } catch (err) {
         console.error(err);

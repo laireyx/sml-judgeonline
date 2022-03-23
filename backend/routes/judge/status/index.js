@@ -1,21 +1,8 @@
 const { Router } = require("express");
-const { listSubmittedStatus } = require("../../../services/list");
 
 const route = Router();
 
-route.get("/:problemName", (req, res, next) => {
-  if (!req.params.problemName) {
-    res.status(400).send("No Problem Name");
-    return;
-  }
-
-  listSubmittedStatus(req.params.problemName).then(
-    (judgeStatus) => res.json(judgeStatus),
-    (err) => {
-      console.error(err);
-      res.status(500).send("Internal Server Error");
-    }
-  );
-});
+route.use("/problem", require("./problem"));
+route.use("/code", require("./code"));
 
 module.exports = route;
