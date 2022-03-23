@@ -4,7 +4,7 @@ td.resultText code {
     display: block;
     overflow-y: auto;
     
-    line-break: anywhere;
+    white-space: pre-line;
     font-size: smaller;
 }
 
