@@ -22,11 +22,15 @@ export default function JudgeResultItem({ className, codeName, result }) {
       </td>
       <td>{new Date(+timeStamp).toLocaleString()}</td>
       <td>
-        {Object.keys(result).map((judgeCode) => (
-          <li key={codeName + judgeCode}>
-            {judgeCode} : {result[judgeCode].length}B
-          </li>
-        ))}
+        {Object.keys(result).map((judgeCode) => {
+          /** eslint-disable no-unused-vars */
+          const [_, name, timeStamp] = judgeCode.match(/(.+?).(\d+).sml/);
+          return (
+            <li key={codeName + judgeCode}>
+              {name} : {result[judgeCode].length}B
+            </li>
+          );
+        })}
       </td>
     </tr>
   );
