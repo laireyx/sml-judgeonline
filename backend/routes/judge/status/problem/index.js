@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { listAllSubmittedStatus } = require("../../../../services/list");
+const { listSubmittedJudgeStatus } = require("../../../../services/list");
 
 const route = Router();
 
@@ -9,7 +9,7 @@ route.get("/:problemName", (req, res, next) => {
     return;
   }
 
-  listAllSubmittedStatus(req.params.problemName).then(
+  listSubmittedJudgeStatus(req.params.problemName).then(
     (judgeStatus) => res.json(judgeStatus),
     (err) => {
       console.error(err);
