@@ -14,7 +14,16 @@ export default function JudgeResultItem({
 
   return (
     <tr className={className}>
-      <td className={styles.submittedCodeName}>{name}</td>
+      <td className={styles.submittedCodeName}>
+        <Link
+          to={`/view-submitted/${problemName}/${path.basename(
+            codeName,
+            ".result.json"
+          )}`}
+        >
+          {name}
+        </Link>
+      </td>
       <td className={styles.resultBytes}>
         <Link
           to={`/detailed-status/${problemName}/${path.basename(
