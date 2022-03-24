@@ -7,6 +7,7 @@ import SubmitJudge from "./routes/submit-judge";
 
 import "./App.css";
 import DetailedJudgeResult from "./routes/detailed-result";
+import ViewSubmitted from "./routes/view-submitted";
 
 function App() {
   return (
@@ -20,11 +21,17 @@ function App() {
         <Route path="/submit-judge/" element={<SubmitJudge />} />
         <Route path="/submit-judge/:problemName" element={<SubmitJudge />} />
 
+        <Route path="/status/:problemName" element={<JudgeStatus />} />
+
         <Route
           path="/detailed-status/:problemName/:codeName"
           element={<DetailedJudgeResult />}
         />
-        <Route path="/status/:problemName" element={<JudgeStatus />} />
+
+        <Route
+          path="/view-submitted/:problemName/:codeName"
+          element={<ViewSubmitted />}
+        />
       </Routes>
     </div>
   );

@@ -1,0 +1,27 @@
+.codeViewWrapper {
+    display: inherit;
+    flex-direction: inherit;
+    gap: inherit;
+}
+
+.codeName {
+    appearance: none;
+
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 4px;
+    
+    padding: 0.5em;
+
+    font-size: inherit;
+}
+
+.codeViewWrapper > *:nth-child(2) {
+    width: 60ch;
+}
+
+@media (max-width: 480px) {
+    .codeViewWrapper > *:nth-child(2) {
+        width: 48ch;
+        max-width: 80vw;
+    }
+}
